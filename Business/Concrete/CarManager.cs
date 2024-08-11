@@ -1,10 +1,14 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,19 +23,36 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<Car> GetById(Expression<Func<Car, bool>> filter)
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<Car>(_carDal.Get(filter));
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll(P=>P.BrandId == id);
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarListed);
+        }
+        
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(p => p.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(P => P.BrandId == id));
+        }
+
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id)); 
+        }
+
+        public IResult AddCar(Car car)
+        {
+            _carDal.Add(car);
+            return new SuccessResult("Araba eklendi");
         }
     }
 }
