@@ -11,40 +11,38 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class ColorManager : IColorService
+    public class UserManager : IUserService
     {
-        IColorDal  _colorDal;
+        IUserDal _userDal;
 
-        public ColorManager(IColorDal colorDal)
+        public UserManager(IUserDal userDal)
         {
-            _colorDal = colorDal;
+            _userDal = userDal;
         }
 
-        public IResult Add(Color color)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Delete(Color color)
+        public IResult Add(User user)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Color>> GetAll()
+        public IResult Delete(User user)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<Color> GetById(int id)
+        public IDataResult<List<User>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IResult Update(Color color)
+        public IDataResult<User> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
- 
+        public IResult Update(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

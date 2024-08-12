@@ -23,9 +23,9 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public IDataResult<Car> GetById(Expression<Func<Car, bool>> filter)
+        public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(filter));
+            return new SuccessDataResult<Car>(_carDal.Get(p=>p.CarId == id));
         }
 
         public IDataResult<List<Car>> GetAll()

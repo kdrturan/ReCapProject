@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IColorService
+    public interface IRentalService
     {
-        IResult Add(Color color);
-        IResult Update(Color color);
-        IResult Delete(Color color);
-        IDataResult<Color> GetById(int id);
-        IDataResult<List<Color>> GetAll();
+        IResult Add(Rental rental);
+        IResult Update(Rental rental);
+        IResult Delete(Rental rental);
+        IDataResult<Rental> GetById(int id);
+        IDataResult<List<Rental>> GetAll();
     }
 }

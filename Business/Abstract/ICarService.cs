@@ -13,7 +13,7 @@ namespace Business.Abstract
     public interface ICarService
     {
         IDataResult<List<Car>> GetAll();
-        IDataResult<Car> GetById(Expression<Func<Car, bool>> filter);
+        IDataResult<Car> GetById(int id);
         IResult AddCar(Car car);
         IDataResult<List<Car>> GetCarsByBrandId(int id);
         IDataResult<List<Car>> GetCarsByColorId(int id);
