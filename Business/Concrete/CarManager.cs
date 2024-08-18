@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspect.Autofac.Validation;
 using Core.CrossCuttingConcers.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -22,10 +23,11 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal  _carDal;
-
-        public CarManager(ICarDal carDal)
+        IBrandService _brandService;
+        public CarManager(ICarDal carDal, IBrandService brandService)
         {
             _carDal = carDal;
+            _brandService = brandService;
         }
 
         public IDataResult<Car> GetById(int id)
@@ -55,10 +57,25 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public IResult AddCar(Car car)
+        public IResult Add(Car car)
         {
+            BusinessRules.Run(CheckCarLimit());
             _carDal.Add(car);
             return new SuccessResult("Araba eklendi");
+        }
+
+
+
+
+        //Rules
+        private IResult CheckCarLimit()
+        {
+            var result= _brandService.GetAll();
+            if (result.Data.Count > 20)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
     }
 }

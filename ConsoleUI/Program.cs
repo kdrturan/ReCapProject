@@ -7,6 +7,8 @@ using DataAccess.Concrete.InMemory;
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using DataAccess.Abstract;
+using Business.Abstract;
 
 namespace ConsoleUI
 {
@@ -15,7 +17,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //manuelAdd();
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(), new BrandManager(new EfBrandDal()));
             var result = carManager.GetCarDetails();
             if (result.IsSuccess == true)
             {

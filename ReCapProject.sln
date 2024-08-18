@@ -16,7 +16,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\Cons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{F897DB7B-87FE-4233-BAC2-FBED92089B32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{EFF3EF4D-472E-4776-9211-989A24B4AF52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{EFF3EF4D-472E-4776-9211-989A24B4AF52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Uploads", "Uploads", "{61220969-A7D9-4A4F-A4F9-E45B1C1CB4F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarImages", "CarImages", "{9930D81E-3A15-4A39-9DDD-6275E0E9D60F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\550e8400-e29b-41d4-a716-446655440000.jpg = ..\..\550e8400-e29b-41d4-a716-446655440000.jpg
+		..\..\9f1b1b23-3a2b-4a1f-b7e3-5b67d6a6e556.jpg = ..\..\9f1b1b23-3a2b-4a1f-b7e3-5b67d6a6e556.jpg
+		..\..\DefaultImage.jpg = ..\..\DefaultImage.jpg
+		..\..\f47ac10b-58cc-4372-a567-0e02b2c3d479.jpg = ..\..\f47ac10b-58cc-4372-a567-0e02b2c3d479.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +61,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9930D81E-3A15-4A39-9DDD-6275E0E9D60F} = {61220969-A7D9-4A4F-A4F9-E45B1C1CB4F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E49DF1C-860B-4C11-9BE4-9D54043507C7}
