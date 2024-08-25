@@ -1,44 +1,50 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Business;
+using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
+        IFileHelper _fileHelper;
 
-
-        public CarImageManager(ICarImageDal carImageDal)
+        public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper)
         {
             _carImageDal = carImageDal;
+            _fileHelper = fileHelper;
         }
 
-        public IResult Add(CarImage carImageDal)
+        public IResult Add(IFormFile formFile, CarImage carImage)
         {
-            var result = BusinessRules.Run(CheckCarImagesLimit(carImageDal));
-            if(result == null)
+            var result = BusinessRules.Run(CheckCarImagesLimit(carImage));
+            if(result != null)
             {
-                carImageDal.Date = DateTime.Now;
-                _carImageDal.Add(carImageDal);
-                return new SuccessResult(Messages.CarImageAdded);
+                return result;
             }
-            return result;
+            carImage.ImagePath = _fileHelper.Upload(formFile, PathConstants.CarImagePath);
+            carImage.Date = DateTime.Now;
+
+            _carImageDal.Add(carImage);
+             return new SuccessResult(Messages.CarImageAdded);
         }
 
-        public IResult Delete(CarImage carImageDal)
+        public IResult Delete(CarImage carImage)
         {
-             _carImageDal.Delete(carImageDal);
-            return new SuccessResult(Messages.CarImageDeleted);
+            _fileHelper.Delete(PathConstants.CarImagePath + carImage.ImagePath);
+            _carImageDal.Delete(carImage);
+            return new SuccessResult();
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -57,10 +63,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == id));
         }
 
-        public IResult Update(CarImage carImageDal)
+        public IResult Update(IFormFile formFile, CarImage carImage)
         {
-            _carImageDal.Update(carImageDal);
-            return new SuccessResult(Messages.CarImageUpdated);
+            carImage.ImagePath = _fileHelper.Update(formFile, PathConstants.CarImagePath + carImage.ImagePath,
+                PathConstants.CarImagePath);
+            carImage.Date = DateTime.Now;
+            _carImageDal.Update(carImage);
+            return new SuccessResult();
         }
 
 

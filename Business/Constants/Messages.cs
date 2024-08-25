@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,13 @@ namespace Business.Constants
         public static string CarImageUpdated = "Araba resmi güncellendi";
         public static string CarImageLimitExceeded = "Bir arabaya en fazla 5 adet resim eklenebilir";
         public static string CarImageNotExist = "Arabaya ait resim yok";
+
+        public static string UserNotFound = "Kullanıcı bulunamadı";
+        public static string PasswordError = "Parola yanlış";
+        public static string SuccesfulyLogin = "Giriş başarılı";
+        internal static string UserExists = "Kullanıcı  mevcut";
+        internal static string AccesTokenCreated = "Acces token oluşturuldu.";
+        internal static string UserRegistered = "Kayıt olundu";
+        internal static string UserAlreadyExists = "Kullanıcı zaten var";
     }
 }
