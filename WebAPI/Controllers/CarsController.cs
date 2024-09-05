@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         {
             _carService = carService;
         }
-        [Authorize(Roles ="Car.List")]
+        //[Authorize(Roles ="Car.List")]
         [HttpGet("getall")]
         public IActionResult GetAll()
         {

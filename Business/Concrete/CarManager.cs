@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspect.Autofac.Caching;
+using Core.Aspect.Autofac.Transaction;
 using Core.Aspect.Autofac.Validation;
 using Core.CrossCuttingConcers.Validation;
 using Core.Utilities.Business;
@@ -34,7 +37,8 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Car>(_carDal.Get(p=>p.CarId == id));
         }
-
+        [CacheAspect]
+        [SecuredOperation("admin")]
         public IDataResult<List<Car>> GetAll()
         {
 
@@ -57,6 +61,8 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("admin,car.add")]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Car car)
         {
             BusinessRules.Run(CheckCarLimit());
@@ -76,6 +82,12 @@ namespace Business.Concrete
                 return new ErrorResult();
             }
             return new SuccessResult();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            throw new NotImplementedException();
         }
     }
 }
