@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Color>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
         public IDataResult<Color> GetById(int id)

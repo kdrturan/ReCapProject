@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
         public IDataResult<Brand> GetById(int id)

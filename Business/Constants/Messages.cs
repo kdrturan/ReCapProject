@@ -30,5 +30,9 @@ namespace Business.Constants
         public static string UserRegistered = "Kayıt olundu";
         public static string UserAlreadyExists = "Kullanıcı zaten var";
         public static string AuthorizationDenied = "Yetkiniz yok";
+        public static string ServerError = "Servera bağlanırken hata oluştu lütfen tekrar deneyin.";
+        public static string Rentable = "Servera bağlanırken hata oluştu lütfen tekrar deneyin.";
+        public static string InvalidRentDate = "Geçersiz tarih aralığı";
+        public static string SuccessfullyRented = "Araç kiralandı";
     }
 }

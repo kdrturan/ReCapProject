@@ -97,7 +97,7 @@ namespace Business.Concrete
 
         private IDataResult<List<CarImage>> GetDefaultImage(int id)
         {
-            List<CarImage> carImage = new List<CarImage> { new CarImage {CarId = id, ImagePath = "C:\\Users\\atura\\OneDrive\\Masaüstü\\DefaultImage.jpg" } };
+            List<CarImage> carImage = new List<CarImage> { new CarImage {CarId = id, ImagePath = "Uploads/CarImages/DefaultImage.jpg" } };
             return new SuccessDataResult<List<CarImage>>(carImage);
         }
 

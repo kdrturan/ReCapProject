@@ -19,4 +19,13 @@
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Uploads\CarImages\550e8400-e29b-41d4-a716-446655440000.jpg" />
+    <None Include="wwwroot\Uploads\CarImages\9f1b1b23-3a2b-4a1f-b7e3-5b67d6a6e556.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Uploads\CarImages\DefaultImage.jpg" />
+    <None Include="wwwroot\Uploads\CarImages\f47ac10b-58cc-4372-a567-0e02b2c3d479.jpg" />
+  </ItemGroup>
+
 </Project>

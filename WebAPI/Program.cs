@@ -13,19 +13,25 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-//IoC Container altta
-builder.Host.UseServiceProviderFactory(services => new AutofacServiceProviderFactory())
-    .ConfigureContainer<ContainerBuilder>(builder => { builder.RegisterModule(new AutofacBusinessModule()); });
 
-// Add services to the container. 
+// 1. Autofac Baðýmlýlýk Enjeksiyonu Yapýlandýrmasý
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacBusinessModule());
+    });
 
-
+// 2. Servisler ve Baðýmlýlýklar
 builder.Services.AddControllers();
+builder.Services.AddCors();
 
+// 3. IHttpContextAccessor Kaydý
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+// 4. Token Options ve JWT Yapýlandýrmasý
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -42,29 +48,49 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
         };
     });
-builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreModule()});
-// Di?er servislerinizi ekleyin
-//builder.Services.AddSingleton<IProductService, ProductManager>();
-//builder.Services.AddSingleton<IProductDal, EfProductDal>();
-// Learn more about configuring Swagger/OpenAPI at 0
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddAuthorization();
 
+// 5. Core Modüller ve Diðer Baðýmlýlýk Çözümleyicileri
+builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreModule() });
+
+// 6. Swagger / OpenAPI Yapýlandýrmasý
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
+
+// 7. Yetkilendirme
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline. 
+// 8. Uygulama Ortamýna Göre Swagger Yapýlandýrmasý
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
 }
 
+// 9. Static Files Middleware (Statik Dosyalar Ýçin)
+
+
+// 10. CORS Yapýlandýrmasý
+app.UseCors(options =>
+    options.WithOrigins("http://localhost:4200")  // Angular uygulamanýzýn adresi
+           .AllowAnyHeader()
+           .AllowAnyMethod());
+
+// 11. HTTPS Yönlendirme ve Diðer Middleware'ler
 app.UseHttpsRedirection();
 
+app.UseStaticFiles(); // Statik dosyalar için middleware burada olmalý.
+
+// 12. Kimlik Doðrulama ve Yetkilendirme
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers();  // Kontrolcüleri haritalama
 
 app.Run();

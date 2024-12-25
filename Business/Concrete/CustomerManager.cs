@@ -1,7 +1,10 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +30,18 @@ namespace Business.Concrete
 
         public IDataResult<List<Customer>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
 
         public IDataResult<Customer> GetById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetail()
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetail());
+
         }
 
         public IResult Update(Customer customer)

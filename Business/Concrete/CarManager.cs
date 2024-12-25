@@ -9,7 +9,6 @@ using Core.CrossCuttingConcers.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
@@ -38,7 +37,6 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(p=>p.CarId == id));
         }
         [CacheAspect]
-        [SecuredOperation("admin")]
         public IDataResult<List<Car>> GetAll()
         {
 
@@ -55,6 +53,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(P => P.BrandId == id));
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandIdDto(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsByBrandIdDto(id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarsByColorIdDto(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsByColorIdDto(id));
+        }
+
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id)); 
@@ -65,12 +73,21 @@ namespace Business.Concrete
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Car car)
         {
-            BusinessRules.Run(CheckCarLimit());
+            IResult result = BusinessRules.Run(CheckCarLimit());
+
+            if (result != null)
+            {
+                return result;
+            }
+
             _carDal.Add(car);
             return new SuccessResult("Araba eklendi");
         }
 
-
+        public IDataResult<List<CarDetailDto>> GetCarDetailsById(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsById(id));
+        }
 
 
         //Rules
@@ -89,5 +106,7 @@ namespace Business.Concrete
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
