@@ -1,9 +1,6 @@
-Elbette! Aşağıda, projeniz için görsel olarak zenginleştirilmiş ve detaylı bir `README.md` örneği sunuyorum. Bu örnek, başlıklar, rozetler, kod blokları ve bağlantılar gibi Markdown öğeleriyle projeyi etkili bir şekilde tanıtmaktadır.
-
----
 
 # 🚗 ReCapProject
-**ReCapProject**, C# dilinde geliştirilmiş, katmanlı mimari prensiplerine dayanan ve SOLID prensiplerine uygun olarak yapılandırılmış bir örnek uygulamadır. Proje, Entity Framework kullanılarak veri erişimi sağlamakta, FluentValidation ile model doğrulama işlemleri gerçekleştirilmekte ve JWT (JSON Web Token) ile güvenli kimlik doğrulama sağlanmaktadır. Uygulama, hem konsol hem de Web API üzerinden çalışabilen bir yapı sunmaktadır
+**ReCapProject** is a sample application developed in C# that adheres to layered architecture principles and follows the SOLID principles. The project utilizes Entity Framework for data access, implements FluentValidation for model validation, and employs JWT (JSON Web Token) for secure authentication. The application is designed to operate through both console and Web API interfaces
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/kdrturan/ReCapProject)
 ![GitHub stars](https://img.shields.io/github/stars/kdrturan/ReCapProject?style=social)
@@ -11,61 +8,63 @@ Elbette! Aşağıda, projeniz için görsel olarak zenginleştirilmiş ve detayl
 
 ---
 
-## 🧱 Proje Yapısı
-Proje aşağıdaki katmanlardan oluşmaktadı:
+## 🧱 Project Structure
+The project is organized into the following layer:
 
-- **Business** İş mantığı ve servislerin yer aldığı katma.
-- **DataAccess** Entity Framework kullanılarak veri erişiminin sağlandığı katma.
-- **Entities** Veri tabanı tablolarını temsil eden varlık sınıflarının bulunduğu katma.
-- **Core** Ortak altyapı kodlarının (örneğin, yardımcı sınıflar, altyapı servisleri) bulunduğu katma.
-- **ConsoleUI** Uygulamanın konsol arayüz.
-- **WebAPI** RESTful API servislerinin bulunduğu katma.
-
----
-
-## 🛠️ Kullanılan Teknolojile
-
-| Teknoloji            | Açıklama                                         |
-|----------------------|--------------------------------------------------|
-| C# (.NET)            | Uygulama geliştirme dili ve platformu            |
-| Entity Framework     | ORM (Object-Relational Mapping) aracı            |
-| FluentValidation     | Model doğrulama kütüphanesi                      |
-| JWT (JSON Web Token) | Güvenli kimlik doğrulama yöntemi                 |
-| Katmanlı Mimari      | Uygulama yapısının düzenlenmesi için kullanılan prensip |
-| SOLID Prensipleri    | Yazılım geliştirme için beş temel prensip        |
-| RESTful API          | Web servisleri için mimari stil                 |
+- **Business** Contains business logic and service implementation.
+- **DataAccess** Handles data access using Entity Framewor.
+- **Entities** Holds entity classes representing database table.
+- **Core** Includes common infrastructure code such as helper classes and base service.
+- **ConsoleUI** Provides a console interface for the applicatio.
+- **WebAPI** Exposes RESTful API service.
 
 ---
 
-## ⚙️ Kurulum ve Çalıştırma
+## 🛠️ Technologies Use
 
-. Projeyi klonlayn:
+| Technology            | Description                                         |
+|-----------------------|-----------------------------------------------------|
+| C# (.NET)             | Programming language and platform                   |
+| Entity Framework      | Object-Relational Mapping (ORM) tool                |
+| FluentValidation      | Library for model validation                        |
+| JWT (JSON Web Token)  | Secure authentication method                        |
+| Layered Architecture  | Design principle for organizing application layers  |
+| SOLID Principles      | Five fundamental principles of object-oriented design |
+| RESTful API           | Architectural style for web services               |
+
+---
+
+## ⚙️ Installation and Setup
+
+. Clone the repositoy:
 
    ```bash
    git clone https://github.com/kdrturan/ReCapProject.git
    ```
 
-. Visual Studio ile `ReCapProject.sln` dosyasını açn.
+. Open `ReCapProject.sln` in Visual Studo.
 
-. Gerekli NuGet paketlerini yükleyn.
+. Restore the required NuGet packags.
 
-. Veritabanı bağlantı ayarlarını `appsettings.json` dosyasında yapılandırn.
+. Configure the database connection in the `appsettings.json` fie.
 
-. Veritabanını oluşturmak için gerekli migration işlemlerini gerçekleştirn:
+. Apply migrations to create the databae:
 
    ```bash
    Add-Migration InitialCreate
    Update-Database
    ```
 
-. Uygulamayı çalıştırn.
+. Run the applicatin.
 
 ---
 
-## 🔐 Güvenlik ve Doğrulama
+## 🔐 Security and Validation
 
-- **FluentValidation*: Model doğrulama işlemleri için kullanılır. Örneğin, kullanıcı girişinde gerekli alanların kontrlü.
+- **FluentValidation*: Used for validating models, ensuring that input data meets defined rules. For example, checking required fields during user loin.
 
-- **JWT (JSON Web Token)*: Kullanıcı kimlik doğrulaması ve yetkilendirme işlemleri için kullanılır. Token tabanlı kimlik doğrulama sistemi ile güvenli erişim sağlaır.
+- **JWT (JSON Web Token)*: Employed for user authentication and authorization. It provides a token-based authentication system to secure accss.
 
 ---
+
+
