@@ -2,7 +2,6 @@
 # 🚗 ReCapProject
 **ReCapProject** is a sample application developed in C# that adheres to layered architecture principles and follows the SOLID principles. The project utilizes Entity Framework for data access, implements FluentValidation for model validation, and employs JWT (JSON Web Token) for secure authentication. The application is designed to operate through both console and Web API interfaces
 
-![GitHub repo size](https://img.shields.io/github/repo-size/kdrturan/ReCapProject)
 ![GitHub stars](https://img.shields.io/github/stars/kdrturan/ReCapProject?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/kdrturan/ReCapProject?style=social)
 
